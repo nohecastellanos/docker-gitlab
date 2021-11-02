@@ -5,13 +5,15 @@ metadata:
   labels:
     name: gitlab
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: http
       port: 80
-      targetPort: http
+      nodePort: 30001
+      protocol: TCP
     - name: ssh
       port: 22
-      targetPort: ssh
+      nodePort: 30002
+      protocol: TCP
   selector:
     name: gitlab

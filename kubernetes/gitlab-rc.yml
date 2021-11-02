@@ -14,12 +14,15 @@ spec:
     spec:
       containers:
       - name: gitlab
-        image: sameersbn/gitlab:14.4.0
+        image: gitlab/gitlab-ce:nightly
         env:
         - name: TZ
           value: Asia/Kolkata
         - name: GITLAB_TIMEZONE
           value: Kolkata
+
+        - name: EXTERNAL_URL
+          value: gitlab.kubernetes.com
 
         - name: GITLAB_SECRETS_DB_KEY_BASE
           value: long-and-random-alpha-numeric-string
@@ -34,7 +37,7 @@ spec:
           value:
 
         - name: GITLAB_HOST
-          value: git.default.cluster.local
+          value: gitlab.kubernetes.com
         - name: GITLAB_PORT
           value: "80"
         - name: GITLAB_SSH_PORT
@@ -71,13 +74,13 @@ spec:
         - name: SMTP_ENABLED
           value: "false"
         - name: SMTP_DOMAIN
-          value: www.example.com
+          value: mail.kubernetes.com
         - name: SMTP_HOST
           value: smtp.gmail.com
         - name: SMTP_PORT
           value: "587"
         - name: SMTP_USER
-          value: mailer@example.com
+          value: mailer@kubernetes.com
         - name: SMTP_PASS
           value: password
         - name: SMTP_STARTTLS
@@ -92,7 +95,7 @@ spec:
         - name: IMAP_PORT
           value: "993"
         - name: IMAP_USER
-          value: mailer@example.com
+          value: mailer@kubernetes.com
         - name: IMAP_PASS
           value: password
         - name: IMAP_SSL
@@ -107,18 +110,6 @@ spec:
         volumeMounts:
         - mountPath: /home/git/data
           name: data
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 180
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
       volumes:
       - name: data
         emptyDir: {}
