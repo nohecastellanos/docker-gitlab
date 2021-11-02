@@ -8,14 +8,14 @@ if ! command -v kubectl > /dev/null; then
 fi
 
 # create the services
-for svc in *-svc.yml
+for svc in *-svc.yaml
 do
   echo -n "Creating $svc... "
   kubectl -f $svc create
 done
 
 # create the replication controllers
-for rc in *-rc.yml
+for rc in *-rc.yaml
 do
   echo -n "Creating $rc... "
   kubectl -f $rc create
