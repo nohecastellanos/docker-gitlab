@@ -21,7 +21,7 @@ spec:
         - name: GITLAB_TIMEZONE
           value: Kolkata
 
-        - name: EXTERNAL_URL
+        - name: GITLAB_EXTERNAL_HOSTNAME
           value: gitlab.kubernetes.com
 
         - name: GITLAB_SECRETS_DB_KEY_BASE
@@ -102,6 +102,9 @@ spec:
           value: "true"
         - name: IMAP_STARTTLS
           value: "false"
+        - name: GITLAB_OMNIBUS_CONFIG
+          value: |
+            external_url "http://gitlab.kubernetes.com"
         ports:
         - name: http
           containerPort: 80
