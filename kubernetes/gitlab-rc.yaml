@@ -1,19 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: gitlab
+  name: gitlab-app
+  namespace: gitlab
 spec:
   replicas: 1
   selector:
-    name: gitlab
+    name: gitlab-app
   template:
     metadata:
-      name: gitlab
+      name: gitlab-app
       labels:
-        name: gitlab
+        name: gitlab-app
     spec:
       containers:
-      - name: gitlab
+      - name: gitlab-app
         image: gitlab/gitlab-ce:nightly
         env:
         - name: TZ

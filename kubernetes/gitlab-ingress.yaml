@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitlab-ingress
+  namespace: gitlab
+  labels:
+    app: gitlab-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: gitlab.kubernetes.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: gitlab-svc
+            port:
+              number: 80
+        pathType: Prefix
+        path: /(/|$)(.*)
+  defaultBackend:
+    service:
+      name: gitlab-svc
+      port:
+        number: 80
