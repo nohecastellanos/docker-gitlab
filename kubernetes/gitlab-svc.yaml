@@ -17,4 +17,4 @@ spec:
       nodePort: 30002
       protocol: TCP
   selector:
-    name: gitlab-svc
+    name: gitlab-app
